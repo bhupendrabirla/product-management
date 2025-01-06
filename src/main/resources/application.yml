@@ -1,0 +1,37 @@
+spring:
+  application:
+    name: product-management
+  datasource:
+    url: jdbc:postgresql://localhost:5432/product-management
+    username: postgres
+    password: postgres
+  jpa:
+    hibernate:
+      ddl-auto: none
+  liquibase:
+    enabled: true
+    change-log: classpath:config/liquibase/master.xml
+
+spring-doc:
+  api-docs:
+    enabled: true # enable swagger api documentation
+  swagger-ui:
+    enabled: true #enabling swagger ui
+
+app:
+  security:
+    config:
+      secret-key: 539804337befda3dfjkscccc706e2e13dace18dd040a7dsfsdfkjsdjfsdj # secret key for the jwt-token
+      access-token-expiry: 300000 # 5 min expiry time for the access token
+      refresh-token-expiry: 86400000 # 1 day expiry for refresh token
+      public-urls: # public urls list
+        - /auth/**
+        - /v2/api-docs
+        - /swagger-ui.html
+        - /swagger-resources
+        - /swagger-resources/**
+        - /configuration/ui
+        - /configuration/security
+        - /webjars/**
+        - /v3/api-docs/**
+        - /swagger-ui/**
