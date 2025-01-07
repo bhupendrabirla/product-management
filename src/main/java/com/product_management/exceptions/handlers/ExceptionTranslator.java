@@ -25,13 +25,6 @@ public class ExceptionTranslator {
     @ExceptionHandler(MethodArgumentNotValidException.class)
     public ResponseEntity<ErrorResponse> handleMethodArgumentNotValidException(final MethodArgumentNotValidException ex) {
         var allErrors = ex.getBindingResult().getAllErrors();
-//        var errorMessage = new StringBuilder();
-//        for (var error : allErrors) {
-//            errorMessage.append(error.getDefaultMessage());
-//            if (allErrors.size() > 1 && allErrors.indexOf(error) != allErrors.size() - 1) {
-//                errorMessage.append(" | ");
-//            }
-//        }
         var errorMessage = allErrors.stream()
                 .map(DefaultMessageSourceResolvable::getDefaultMessage)
                 .distinct()
@@ -40,10 +33,6 @@ public class ExceptionTranslator {
         return ResponseEntity.badRequest().body(
                 ErrorResponse.builder().message(errorMessage).errorCode(VALIDATION_FAILED).build()
         );
-
-//        return ResponseEntity.badRequest().body(
-//                ErrorResponse.builder().message(errorMessage).errorCode(VALIDATION_FAILED).build()
-//        );
     }
 
     @ExceptionHandler(UserAlreadyRegisteredException.class)
